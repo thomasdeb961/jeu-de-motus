@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeu de Motus</title>
+  <link rel="stylesheet" href="styles6.css">
+</head>
+<body>
+<div class="container">
+  <h1>Jeu de Motus</h1>
+  <div class="grid" id="grid"></div>
+  <div class="word-grid" id="wordGrid"></div>
+  <input type="text" id="guess" maxlength="6" placeholder="entrez un mot..." oninput="autoSubmit(event)">
+  <button id="submit-guess" onclick="checkWord()">Valider</button>
+  <br>
+  <button class="dictChange" onclick="window.location.href='dict5.html';" >Jeu de 5 lettres</button>
+  <p id="message"></p>
+
+</div>
+<!-- une fct c'est un objectif-->
+
+<script src="script6.js"></script>
+</body>
+</html>
