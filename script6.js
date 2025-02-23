@@ -1,5 +1,4 @@
-
-// Déclaration des variables globales
+// les variables en générale
 let currentRow = 0;
 const attempts = 5; // Vous aviez défini attempts = 5 et row = 6
 const wordToGuess = ['CHEVAL', 'BANANE', 'ORANGE', 'BATEAU', 'MUSCLE', 'JARDIN', 'GÂTEAU', 'TENNIS', 'CAHIER', 'AVIONS',
@@ -26,11 +25,12 @@ function createGrid() {
 // Fonction pour vérifier le mot que le joueur rentre
 function checkWord() {
     let input = document.getElementById("guess").value.toUpperCase();
-    if (input.length !== 6) {
+    if (input.length != 6) {
         alert("Le mot doit contenir 6 lettres !");
         return;
     }
 
+//colorier chaque lettre par ca couleur spécifiques
 
     let rowCells = document.querySelectorAll(".grid .cell");
     for (let i = 0; i < 6; i++) {
@@ -53,14 +53,15 @@ function checkWord() {
     if (input === targetWord) {
         setTimeout(() => {
             alert("Bravo, vous avez trouvé le mot !");
-        })
+        },500)
     }
 
-    // Vérifier si le joueur essayer toutes les essais et na pas réussi
+
+    // Vérifier si le joueur a essayer toutes les essais et na pas réussi
     if (currentRow >= attempts) {
         setTimeout(() => {
             alert("Dommage ! Le mot à deviner était : " + targetWord);
-        })
+        },500)
     }
 }
 
