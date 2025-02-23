@@ -1,25 +1,65 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jeu de Motus</title>
-  <link rel="stylesheet" href="styles5.css">
-</head>
-<body>
-<div class="container">
-  <h1>Jeu de Motus</h1>
-  <div class="grid" id="grid"></div>
-  <div class="word-grid" id="wordGrid"></div>
-  <input type="text" id="guess" maxlength="5" placeholder="entrez un mot..." oninput="autoSubmit(event)">
-  <button id="submit-guess" onclick="checkWord()">Valider</button>
-  <br>
-  <button class="dictChange" onclick="window.location.href='dict6.html';" >Jeu de 6 lettres</button>
-  <p id="message"></p>
+// les variables en générale
+let currentRow = 0;
+const attempts = 5 ;
+const wordToGuess = ['LIVRE', 'POMME', 'TABLE', 'BATON', 'CHIEN', 'PLAGE', 'FLEUR', 'CRANE', 'VERRE', 'GLACE',
+    'ROUGE', 'NOIRE', 'BOMBE', 'BLANC', 'VERTU', 'GRAVE', 'CARTE', 'PLUIE', 'ORAGE', 'NEIGE', 'GOMME', 'TRACE', 'FONCE',
+    'TRAIN', 'VESTE', 'CLASSE', 'MAIRE', 'SUCRE', 'TARTE', 'BICHE', 'DRAPE', 'AIMER', 'SALTO', 'LARGE', 'NAVET',
+    'PISTE', 'VOILE', 'FABLE', 'CORPS', 'VIGNE', 'CHUTE', 'TRAME', 'TIGRE', 'ROCHE', 'DOUTE', 'RONDE', 'MOULE',
+    'FUITE', 'BOTTE', 'SAUTE'];
+let targetWord = wordToGuess[Math.floor(Math.random() * wordToGuess.length)];
 
-</div>
-<!-- une fct c'est un objectif-->
+// Fonction pour créer la grille
+function createGrid() {
+    const grid = document.getElementById("grid");
 
-<script src="script5.js"></script>
-</body>
-</html>
+    for (let i = 0; i < attempts * 5; i++) {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        grid.appendChild(cell);
+    }
+}
+
+// Fonction pour vérifier le mot que le joueur rentre
+function checkWord() {
+    let input = document.getElementById("guess").value.toUpperCase();
+    if (input.length != 5) {
+        alert("Le mot doit contenir 5 lettres !");
+        return;
+    }
+
+//colorier chaque lettre par ca couleur spécifiques
+
+    let rowCells = document.querySelectorAll(".grid .cell");
+    for (let i = 0; i < 5; i++) {
+        let cell = rowCells[currentRow * 5 + i];
+        cell.textContent = input[i];
+
+        if (input[i] === targetWord[i]) {
+            cell.classList.add("correct");
+        } else if (targetWord.includes(input[i])) {
+            cell.classList.add("present");
+        } else {
+            cell.classList.add("absent");
+        }
+    }
+
+    currentRow++;
+    document.getElementById("guess").value = "";
+
+    // Vérifier si le joueur a gagné
+    if (input === targetWord) {
+        setTimeout(() => {
+            alert("Bravo, vous avez trouvé le mot !");
+        },500)
+    }
+
+    // Vérifier si le joueur a essayer toutes les essais et na pas réussi
+      
+    if (currentRow >= attempts) {
+        setTimeout(() => {
+            alert("Dommage ! Le mot à deviner était : " + targetWord);
+        },500)
+    }
+}
+
+createGrid();
